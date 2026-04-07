@@ -1,0 +1,85 @@
+
+
+
+--1) Write an SQL query to find the names of customers who have placed an order.
+
+SELECT Distinct(CustomerName) as unique_customer_Name
+FROM Orders as O
+INNER JOIN Customers as C
+	ON O.CustomerID = C.CustomerID;
+
+--2) Find the list of customers who have not placed any orders.
+
+SELECT *
+FROM Customers as C
+LEFT JOIN Orders as O
+	ON C.CustomerID = O.CustomerID
+WHERE OrderID IS NULL;
+
+
+
+
+--3) List all orders along with the product name and price.
+ 
+
+SELECT 
+Distinct(ProductName),
+Price
+FROM Orders as O
+INNER JOIN Products as P
+	ON O.ProductID = P.ProductID
+
+
+--4) Find the names of customers and their orders, including customers who haven't placed any orders.
+
+SELECT CustomerName,OrderID
+FROM Customers as C
+LEFT JOIN Orders as O
+	ON C.CustomerID = O.CustomerID
+
+--5) Retrieve a list of products that have never been ordered.
+
+SELECT 
+	P.ProductID,
+	ProductName
+FROM products as P
+Left JOIN Orders as O
+	ON P.ProductID = O.ProductID
+WHERE OrderID IS NULL;
+
+--6) Find the total number of orders placed by each customer.
+SELECT 
+	CustomerName,
+	COUNT(OrderID) as Number_Of_Orders
+FROM Customers as C
+INNER JOIN Orders as O
+	ON C.CustomerID = O.CustomerID
+GROUP BY CustomerName
+
+
+--OR 
+
+SELECT 
+	CustomerName,
+	COUNT(OrderID) as Number_Of_Orders
+FROM Customers as C
+LEFT JOIN Orders as O
+ON C.CustomerID = O.CustomerID
+GROUP BY CustomerName
+
+--7) Display the customers, the products they've ordered, and the order date. Include customers who haven't placed any orders.
+
+SELECT 
+	CustomerName,
+	P.ProductID,
+	ProductName,
+	OrderDate
+FROM Customers as C
+left JOIN Orders as O
+	ON C.CustomerID = O.CustomerID
+left JOIN Products as P
+ON O.ProductID = P.ProductID;
+
+
+
+
