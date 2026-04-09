@@ -24,7 +24,7 @@ Group By CustomerName
 Order BY Sum(price) DESC
 Limit 1;
 
-3. Find the Customers who have ordered more than one type of products ?
+3. Find the Customers who have ordered more than one type of products?
 
 SELECT 
   C.CustomerName
@@ -33,4 +33,24 @@ INNER JOIN Orders as O
   ON C.CustomerID = O.CustomerID
 Group By C.CustomerName
 Having Count(OrderID) > 1;
+
+4. List of all products and their corrospoding orders, including products that have never been order?
+
+SELECT 
+  OrderID,
+  ProductName,
+  ProductName
+FROM Products as p
+LEFT JOIN Orders as O
+  ON p.ProductID = O.ProductID;
+
+5. Retrive all orders placed by customers from the USA
+
+SELECT 
+  OrderID
+FROM Customers as C
+INNER JOIN Orders as O
+  ON C.CustomerID = O.CustomerID
+  AND Country = 'USA'
+;
 
