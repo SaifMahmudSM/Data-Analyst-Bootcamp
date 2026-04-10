@@ -51,6 +51,31 @@ SELECT
 FROM Customers as C
 INNER JOIN Orders as O
   ON C.CustomerID = O.CustomerID
-  AND Country = 'USA'
-;
+  AND Country = 'USA';
 
+6. Find the Cusotmers who have Ordered a product above $500?
+
+
+SELECT 
+  Distinct customerName
+FROM Customers as c
+LEFT JOIN Orders as o
+  ON c. CustomerID = o.CustomerID
+LEFT JOIN Products as P
+  ON o.ProductID = P.ProductID
+WHERE Price > 500;
+
+7. Find the customers who haveed same product more than once?
+
+SELECT Distinct CustomerName 
+  FROM   
+    (SELECT 
+        ProductID,
+        CustomerName,
+        count(OrderID) as orders
+      FROM Customers as c
+      INNER JOIN Orders as o
+        ON c. CustomerID = o.CustomerID
+       Group BY ProductID,CustomerName
+       Having count(orderID) > 1 ) 
+  Multipule_order
